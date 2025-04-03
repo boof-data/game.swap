@@ -1,0 +1,23 @@
+body {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #00FFFF; /* Neon cyan */
+}
+
+button {
+    background-color: #FF00FF; /* Neon pink */
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #CC00CC;
+}
