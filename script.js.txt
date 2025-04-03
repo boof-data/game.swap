@@ -1,116 +1,15 @@
-// script.js
 const coinflip = {
-  players: [],
-  betAmount: 0,
-  rake: 0.05, // 5% rake
+    players: ["Player1", "Player2"], // Hardcoded for demo
+    betAmount: 5, // $5 bet
+    rake: 0.05, // 5% rake
 
-  startGame(player1, player2, amount) {
-    this.players = [player1, player2];
-    this.betAmount = amount;
-    const result = Math.random() < 0.5 ? player1 : player2; // 50/50 flip
-    const winnings = amount * 2 * (1 - this.rake); // Total pot minus rake
-    console.log(`${result} wins ${winnings}! Rake: ${amount * 2 * this.rake}`);
-    return result;
-  }
+    startGame() {
+        const result = Math.random() < 0.5 ? this.players[0] : this.players[1];
+        const winnings = this.betAmount * 2 * (1 - this.rake);
+        document.getElementById("result").innerText = `${result} wins $${winnings}! Rake: $${this.betAmount * 2 * this.rake}`;
+    }
 };
 
-// Example usage
 document.getElementById("flipButton").addEventListener("click", () => {
-  const winner = coinflip.startGame("Player1", "Player2", 5);
-  document.getElementById("result").innerText = `${winner} wins!`;
-});
-
-// script.js
-const jackpot = {
-  potValue: 0,
-  players: [],
-  timer: 900, // 15 mins in seconds
-  rake: 0.05,
-
-  addToPot(player, amount) {
-    this.potValue += amount;
-    this.players.push(player);
-    document.getElementById("pot").innerText = `Pot: $${this.potValue}`;
-  },
-
-  startTimer() {
-    setInterval(() => {
-      this.timer--;
-      document.getElementById("timer").innerText = `Time Left: ${this.timer}s`;
-      if (this.timer <= 0) this.endJackpot();
-    }, 1000);
-  },
-
-  endJackpot() {
-    const winner = this.players[Math.floor(Math.random() * this.players.length)];
-    const winnings = this.potValue * (1 - this.rake);
-    console.log(`${winner} wins ${winnings}! Rake: ${this.potValue * this.rake}`);
-    this.reset();
-  },
-
-  reset() {
-    this.potValue = 0;
-    this.players = [];
-    this.timer = 900;
-  }
-};
-
-// Example usage
-document.getElementById("joinButton").addEventListener("click", () => {
-  jackpot.addToPot("Player1", 10);
-});
-jackpot.startTimer();
-
-// script.js
-const trading = {
-  listings: [],
-
-  listItem(item, price) {
-    this.listings.push({ item, price, seller: "You" });
-    this.updateUI();
-  },
-
-  updateUI() {
-    const list = document.getElementById("tradeList");
-    list.innerHTML = this.listings.map(l => `<li>${l.item} - $${l.price}</li>`).join("");
-  },
-
-  acceptTrade(index) {
-    const fee = this.listings[index].price * 0.03; // 3% fee
-    console.log(`Trade accepted! Fee: $${fee}`);
-    this.listings.splice(index, 1);
-    this.updateUI();
-  }
-};
-
-// Example usage
-document.getElementById("listButton").addEventListener("click", () => {
-  trading.listItem("AK-47 Redline", 20);
-});
-
-// script.js
-const trading = {
-  listings: [],
-
-  listItem(item, price) {
-    this.listings.push({ item, price, seller: "You" });
-    this.updateUI();
-  },
-
-  updateUI() {
-    const list = document.getElementById("tradeList");
-    list.innerHTML = this.listings.map(l => `<li>${l.item} - $${l.price}</li>`).join("");
-  },
-
-  acceptTrade(index) {
-    const fee = this.listings[index].price * 0.03; // 3% fee
-    console.log(`Trade accepted! Fee: $${fee}`);
-    this.listings.splice(index, 1);
-    this.updateUI();
-  }
-};
-
-// Example usage
-document.getElementById("listButton").addEventListener("click", () => {
-  trading.listItem("AK-47 Redline", 20);
+    coinflip.startGame();
 });
